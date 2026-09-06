@@ -1,59 +1,36 @@
-# SyntaxSocial
+## 1. 🔍 Business Analysis
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.7.
+**Syntax Social** is a small social media demo designed to demonstrate modern reactive state management in Angular using **Signals and RxJS Observables**.
 
-## Development server
+The demo allows users to:
 
-To start a local development server, run:
+- view a list of posts
+- like and unlike posts
+- repost and unrepost posts
+- follow and unfollow authors
+- see engagement scores update reactively
+- switch between user and admin mode
+- edit post captions in admin mode
 
-```bash
-ng serve
-```
+### Main Goal
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+The goal of Syntax Social is to demonstrate how different reactive tools in Angular can work together while each is used for the type of problem it handles best.
 
-## Code scaffolding
+The project focuses primarily on demonstrating:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- writable and read-only signals
+- computed signals
+- signal-based inputs
+- RxJS Observables
+- Signals and RxJS interoperability
+- centralized state management
+- reactive UI updates
 
-```bash
-ng generate component component-name
-```
+### Business Rules
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- A post can be liked or unliked.
+- A post can be reposted or unreposted.
+- An author can be followed or unfollowed.
+- Engagement score is derived from post interactions.
+- Post captions can only be edited in admin mode.
+- Caption changes should support reactive autosaving without updating the application state on every keystroke.
