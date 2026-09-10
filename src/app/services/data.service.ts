@@ -37,7 +37,7 @@ export class DataService {
   updateCaption(postId: number, newCaption: string) {
     this.postStore.update(posts => {
       return posts.map(post => {
-        if(post.id === postId) {
+        if (post.id === postId) {
           return {
             ...post,
             caption: newCaption
@@ -48,17 +48,19 @@ export class DataService {
     })
   }
 
+// likes + 2*reposts
+  calculateEngagementScore(post: Post) {
+    return post.likes + 2 * post.reposts;
+  }
+
   /*
-calculateEngagementScore(post) {
- 
-}
-toggleLike(postId) {
- 
-}
-toggleRepost(postId) {
- 
-}
-toggleFollow(userId) {
- 
-} */
+ toggleLike(postId) {
+  
+ }
+ toggleRepost(postId) {
+  
+ }
+ toggleFollow(userId) {
+  
+ } */
 }
