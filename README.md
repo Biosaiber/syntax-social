@@ -92,6 +92,8 @@ USER:
 APP:
 
 - changes the follow state of the selected author
+- increments or decrements the author's follower count
+- updates the user state immutably
 - updates the UI reactively
 
 ### Admin Mode
@@ -214,6 +216,7 @@ AppComponent
 export interface Post {
   id: number;
   authorId: number;
+  image: string;
   caption: string;
   likes: number;
   reposts: number;
@@ -228,6 +231,7 @@ export interface Post {
 export interface User {
   id: number;
   username: string;
+  followers: number;
   isFollowed: boolean;
 }
 ```
@@ -283,9 +287,33 @@ Methods:
 
 #### Derived State
 
-- `engagementScore` → calculated from the current post interactions
-- implemented using `computed()`
-- not stored separately because it can always be derived from existing state
+Some values are intentionally not stored directly in the application state.
+
+`engagementScore` is derived from the current post data:
+
+```text
+engagementScore = likes + (2 × reposts)
+```
+
+Because the score can always be calculated from `likes` and `reposts`, storing it separately would duplicate state and could lead to inconsistent data.
+
+A user's `totalEngagementScore` can similarly be derived from the engagement scores of all posts authored by that user.
+
+```text
+User
+  ↓
+Posts where post.authorId === user.id
+  ↓
+Engagement score of each post
+  ↓
+Sum
+  ↓
+totalEngagementScore
+```
+
+This follows the principle:
+
+> Store the source state and derive values that can be calculated from it.
 
 #### RxJS Observable Flow
 
@@ -383,7 +411,59 @@ Users do not navigate between separate application pages. Instead, the UI reacts
 For this reason, introducing Angular Router would add unnecessary complexity without providing a meaningful benefit to the current application flow.
 
 
-## **7. 💻 Implementation**
+## **7. 🏗️ Architecture Decisions**
+
+### Separate Post and User State
+
+Posts reference their authors using `authorId` instead of embedding a complete `User` object inside every post.
+
+This avoids duplicating user data across multiple posts and keeps user-related state centralized inside `userStore`.
+
+### Derived State Is Not Stored
+
+Values such as `engagementScore` and `totalEngagementScore` are not stored directly when they can be calculated from existing state.
+
+This reduces duplicated state and prevents synchronization problems.
+
+### State Ownership
+
+`postStore` and `userStore` are private writable signals owned by `DataService`.
+
+Components cannot modify these stores directly. They receive read-only signals through the service and request state changes using methods such as:
+
+- `toggleLike()`
+- `toggleRepost()`
+- `toggleFollow()`
+- `updateCaption()`
+
+This keeps state mutations centralized and predictable.
+
+### No AuthorComponent
+
+Author information is displayed directly inside `PostComponent`.
+
+The author UI is small and tightly coupled to a post, so extracting it into a separate component would currently add unnecessary complexity.
+
+### No Angular Router
+
+Syntax Social is a single-view application whose interactions are driven by reactive state changes rather than page navigation.
+
+Angular Router is therefore intentionally not used.
+
+### Signals and RxJS Have Different Responsibilities
+
+Signals represent the current application state and derived reactive values.
+
+RxJS is used where the application needs to handle a stream of events over time, specifically the caption autosave flow.
+
+This keeps each reactive tool focused on the problem it handles best:
+
+```text
+Signals → current state and derived state
+RxJS    → event streams and time-based operations
+```
+
+## **8. 💻 Implementation**
 
 ```text
 Generate project structure
@@ -402,17 +482,17 @@ Add CSS styling
 ```
 
 
-## **8. ✅ Validation**
+## **9. ✅ Validation**
 
 To be completed after implementation.
 
 
-## **9. 🧪 Testing**
+## **10. 🧪 Testing**
 
 To be completed after implementation.
 
 
-## **10. 🔄 Data Flow & Responsibilities Check**
+## **11. 🔄 Data Flow & Responsibilities Check**
 
 To be completed after implementation.
 
