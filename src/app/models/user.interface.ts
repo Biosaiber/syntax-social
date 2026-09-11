@@ -1,5 +1,6 @@
 export interface User {
-    id: number,
-    username: string,
-    isFollowed: boolean
+    id: number;
+    username: string;
+    followers: number;
+    isFollowed: boolean;
 }
