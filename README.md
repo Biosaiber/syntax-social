@@ -270,10 +270,12 @@ Methods:
 Responsibilities:
 
 - manage admin mode state
+- expose admin mode as a read-only signal
 - toggle between user and admin mode
 
 Methods:
 
+- `getAdminMode()`
 - `toggleAdminMode()`
 
 ### State Management
