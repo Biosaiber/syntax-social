@@ -1,16 +1,16 @@
 import { Injectable, WritableSignal, signal, computed } from '@angular/core';
 import { Post } from '../models/post.interface';
+import { User } from '../models/user.interface';
 import { posts as initialPosts } from '../mock-data/post.mock';
 import { users as initialUsers } from '../mock-data/user.mock';
-import { User } from '../models/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
 
-  postStore: WritableSignal<Post[]> = signal(initialPosts);
-  userStore: WritableSignal<User[]> = signal(initialUsers);
+  private postStore: WritableSignal<Post[]> = signal(initialPosts);
+  private userStore: WritableSignal<User[]> = signal(initialUsers);
 
 
 
@@ -34,7 +34,7 @@ export class DataService {
     })
   }
 
-  updateCaption(postId: number, newCaption: string) {
+  updateCaption(postId: number, newCaption: string): void {
     this.postStore.update(posts => {
       return posts.map(post => {
         if (post.id === postId) {
@@ -48,19 +48,55 @@ export class DataService {
     })
   }
 
-// likes + 2*reposts
-  calculateEngagementScore(post: Post) {
+  calculateEngagementScore(post: Post): number {
     return post.likes + 2 * post.reposts;
   }
 
-  /*
- toggleLike(postId) {
-  
- }
- toggleRepost(postId) {
-  
- }
- toggleFollow(userId) {
-  
- } */
+
+  toggleLike(postId: number): void {
+    this.postStore.update(posts => {
+      return posts.map(post => {
+        if (post.id === postId) {
+          return {
+            ...post,
+            likes: post.isLiked ? post.likes - 1 : post.likes + 1,
+            isLiked: !post.isLiked
+          }
+        }
+        return post;
+      })
+    })
+  }
+
+
+
+  toggleRepost(postId: number): void {
+    this.postStore.update(posts => {
+      return posts.map(post => {
+        if (post.id === postId) {
+          return {
+            ...post,
+            reposts: post.isReposted ? post.reposts - 1 : post.reposts + 1,
+            isReposted: !post.isReposted
+          }
+        }
+        return post;
+      })
+    })
+  }
+
+  toggleFollow(userId: number): void {
+    this.userStore.update(users => {
+      return users.map(user => {
+        if (user.id === userId) {
+          return {
+            ...user,
+            followers: user.isFollowed ? user.followers - 1 : user.followers + 1,
+            isFollowed: !user.isFollowed
+          }
+        }
+        return user;
+      })
+    })
+  }
 }
