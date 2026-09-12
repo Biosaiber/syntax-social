@@ -1,11 +1,14 @@
-import { Component, signal } from '@angular/core';
+import { Component } from '@angular/core';
+import { PostListComponent } from './components/post-list/post-list.component';
 
 @Component({
   selector: 'app-root',
+  imports: [PostListComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
 export class AppComponent {
+  
 }
 
 /* Responsibilities:
