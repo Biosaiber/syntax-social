@@ -7,6 +7,6 @@
   <app-post-list></app-post-list>
 </main>
 
-<footer>
-  <button>admin mode</button>
+<footer [class]="isAdminMode() ? 'admin-mode' : 'user-mode'">
+  <button (click)="toggleAdminEvent()">{{isAdminMode() ? 'user mode' : 'admin mode'}}</button>
 </footer>

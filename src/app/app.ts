@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { AdminService } from './services/admin.service';
 
 @Component({
   selector: 'app-root',
@@ -8,11 +9,11 @@ import { PostListComponent } from './components/post-list/post-list.component';
   styleUrl: './app.css'
 })
 export class AppComponent {
-  
+  private adminService = inject(AdminService);
+  isAdminMode = this.adminService.getAdminMode();
+
+  toggleAdminEvent() {
+    this.adminService.toggleAdminMode();
+  }
+
 }
-
-/* Responsibilities:
-
-display the main application layout
-provide the admin mode toggle
-display PostListComponent */

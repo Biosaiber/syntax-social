@@ -1,0 +1,10 @@
+footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-mode {
+  background-color: cornflowerblue;
+}
