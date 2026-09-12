@@ -18,6 +18,8 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   padding-inline: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 img,
