@@ -1,37 +1,36 @@
 @if (post(); as currentPost) {
 
-  <article class="post-card">
+<article class="post-card">
 
-    <header class="post-header">
-      <div>
-        <strong>Author #{{ currentPost.authorId }}</strong>
-        <p>Post #{{ currentPost.id }}</p>
-      </div>
-    </header>
+  <header class="post-header">
+    <div>
+      <strong>@{{ author()?.username }}</strong>
 
-    <img
-      [ngSrc]="currentPost.image"
-      width="800"
-      height="500"
-      alt="Post image"
-    >
+    </div>
+    <div>
+      <p>Post #{{ currentPost.id }}</p>
+    </div>
 
-    <section class="post-content">
+  </header>
 
-      <h3>{{ currentPost.caption }}</h3>
+  <img [ngSrc]="currentPost.image" width="800" height="500" alt="Post image">
 
-      <div class="post-stats">
-        <span>❤️ {{ currentPost.likes }}</span>
-        <span>🔁 {{ currentPost.reposts }}</span>
-      </div>
+  <section class="post-content">
 
-      <div class="post-status">
-        <span>Liked: {{ currentPost.isLiked }}</span>
-        <span>Reposted: {{ currentPost.isReposted }}</span>
-      </div>
+    <h3>{{ currentPost.caption }}</h3>
 
-    </section>
+    <div class="post-stats">
+      <span>❤️ {{ currentPost.likes }}</span>
+      <span>🔁 {{ currentPost.reposts }}</span>
+    </div>
 
-  </article>
+    <div class="post-status">
+      <span>Liked: {{ currentPost.isLiked }}</span>
+      <span>Reposted: {{ currentPost.isReposted }}</span>
+    </div>
+
+  </section>
+
+</article>
 
 }
