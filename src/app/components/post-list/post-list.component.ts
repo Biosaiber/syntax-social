@@ -1,17 +1,17 @@
 import { Component, inject } from '@angular/core';
 import { DataService } from '../../services/data.service';
-import { NgOptimizedImage } from '@angular/common';
+import { PostComponent } from '../post/post.component';
 
 @Component({
   selector: 'app-post-list',
-  imports: [NgOptimizedImage],
+  imports: [PostComponent],
   templateUrl: './post-list.component.html',
   styleUrl: './post-list.component.css',
 })
 export class PostListComponent {
   private dataService = inject(DataService);
 
-  posts = this.dataService.getPostsFromStore()();
+  posts = this.dataService.getPostsFromStore();
 }
 
 // read the list of posts from DataService done
