@@ -13,7 +13,3 @@ export class PostListComponent {
 
   posts = this.dataService.getPostsFromStore();
 }
-
-// read the list of posts from DataService done
-// render one PostComponent for each post done
-// pass postId to each PostComponent ?
