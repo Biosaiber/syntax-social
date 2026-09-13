@@ -1,1 +1,37 @@
-<p>post works!</p>
+@if (post(); as currentPost) {
+
+  <article class="post-card">
+
+    <header class="post-header">
+      <div>
+        <strong>Author #{{ currentPost.authorId }}</strong>
+        <p>Post #{{ currentPost.id }}</p>
+      </div>
+    </header>
+
+    <img
+      [ngSrc]="currentPost.image"
+      width="800"
+      height="500"
+      alt="Post image"
+    >
+
+    <section class="post-content">
+
+      <h3>{{ currentPost.caption }}</h3>
+
+      <div class="post-stats">
+        <span>❤️ {{ currentPost.likes }}</span>
+        <span>🔁 {{ currentPost.reposts }}</span>
+      </div>
+
+      <div class="post-status">
+        <span>Liked: {{ currentPost.isLiked }}</span>
+        <span>Reposted: {{ currentPost.isReposted }}</span>
+      </div>
+
+    </section>
+
+  </article>
+
+}
