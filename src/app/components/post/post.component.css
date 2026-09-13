@@ -1,0 +1,11 @@
+img {
+  width: 100%;
+  height: auto;
+}
+.post-card {
+  border-radius: 16px;
+  border: 2px solid #000000;
+  padding: 12px;
+  background-color: #ffe34b;
+  margin-bottom: 16px;
+}
