@@ -15,6 +15,14 @@ export class PostComponent {
     return this.dataService.getPost(this.postId())();
   })
 
+  engagementScore = computed(() => {
+    const currentPost = this.post();
+    if (!currentPost) {
+      return undefined;
+    }
+    return this.dataService.calculateEngagementScore(currentPost);
+  })
+
   author = computed(() => {
     const currentPost = this.post();
     if (!currentPost) {
@@ -22,6 +30,20 @@ export class PostComponent {
     }
     return this.dataService.getUser(currentPost.authorId)();
   })
+
+  toggleLike():void {
+    this.dataService.toggleLike(this.postId());
+  }
+  toggleRepost():void {
+    this.dataService.toggleRepost(this.postId());
+  }
+  toggleFollow():void {
+    const currentAuthorId = this.author()?.id;
+    if (!currentAuthorId) {
+      return;
+    }
+    this.dataService.toggleFollow(currentAuthorId);
+  }
 
 }
 
@@ -31,10 +53,10 @@ export class PostComponent {
 - read the related author from `DataService` : done
 - display post content and author information : done
 - display likes and reposts : done
-- create and display the computed engagement score
-- trigger like / unlike actions
-- trigger repost / unrepost actions
-- trigger follow / unfollow actions
+- create and display the computed engagement score : done
+- trigger like / unlike actions : DONE
+- trigger repost / unrepost actions : DONE
+- trigger follow / unfollow actions : DONE
 - react to admin mode
 - show an editable caption in admin mode
 - trigger the caption autosave flow */

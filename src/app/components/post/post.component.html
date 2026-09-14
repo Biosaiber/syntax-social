@@ -6,7 +6,8 @@
     <div>
       <strong>@{{ author()?.username }}</strong>
       <p>followers: {{author()?.followers}}</p>
-      <button>{{author()?.isFollowed ? 'Following' : 'Follow' }}</button>
+      <button (click)="toggleFollow()">{{author()?.isFollowed ? 'Following' : 'Follow' }}</button>
+      <p>score: {{this.engagementScore()}}</p>
     </div>
     <div>
       <p>Post #{{ currentPost.id }}</p>
@@ -21,8 +22,8 @@
     <h3>{{ currentPost.caption }}</h3>
 
     <div class="post-stats">
-      <span>❤️ {{ currentPost.likes }}</span>
-      <span>🔁 {{ currentPost.reposts }}</span>
+      <span><button (click)="toggleLike()">❤️</button> {{ currentPost.likes }}</span>
+      <span><button (click)="toggleRepost()">🔁</button> {{ currentPost.reposts }}</span>
     </div>
 
     <div class="post-status">
