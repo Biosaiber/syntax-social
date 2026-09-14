@@ -5,7 +5,8 @@
   <header class="post-header">
     <div>
       <strong>@{{ author()?.username }}</strong>
-
+      <p>followers: {{author()?.followers}}</p>
+      <button>{{author()?.isFollowed ? 'Following' : 'Follow' }}</button>
     </div>
     <div>
       <p>Post #{{ currentPost.id }}</p>

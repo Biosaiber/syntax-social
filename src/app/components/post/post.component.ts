@@ -29,7 +29,7 @@ export class PostComponent {
 /* - receive `postId` using signal-based input : done
 - read the current post from `DataService` : done
 - read the related author from `DataService` : done
-- display post content and author information
+- display post content and author information : done
 - display likes and reposts : done
 - create and display the computed engagement score
 - trigger like / unlike actions
