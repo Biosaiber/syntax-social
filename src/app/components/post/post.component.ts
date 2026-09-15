@@ -16,6 +16,7 @@ export class PostComponent {
   isAdminOn = this.adminService.getAdminMode();
   captionChanges = new Subject<string>();
   postId = input.required<number>();
+  isFirst = input.required<boolean>();
   post = computed(() => {
     return this.dataService.getPost(this.postId())();
   })

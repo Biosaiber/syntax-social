@@ -15,7 +15,7 @@
 
   </header>
 
-  <img [ngSrc]="currentPost.image" width="800" height="500" alt="Post image">
+  <img [ngSrc]="currentPost.image" width="800" height="500" alt="Post image" [priority]="isFirst()">
 
   <section class="post-content">
 

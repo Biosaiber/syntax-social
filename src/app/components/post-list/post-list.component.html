@@ -1,5 +1,5 @@
 <div class="post-list-container">
     @for (post of posts(); track post.id; let first = $first) {
-    <app-post [postId]="post.id"></app-post>
+    <app-post [postId]="post.id" [isFirst]="first"></app-post>
     }
 </div>
