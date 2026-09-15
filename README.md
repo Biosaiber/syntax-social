@@ -486,7 +486,20 @@ Add CSS styling
 
 ## **9. ✅ Validation**
 
-To be completed after implementation.
+The application was manually validated to verify the main user flows
+and state updates.
+
+- [] Like and unlike correctly update the post state
+- [] Repost and unrepost correctly update the post state
+- [] Follow and unfollow update the shared User state and follower count
+- [] Engagement score reacts automatically to likes and reposts
+- [] Admin mode enables caption editing
+- [] User mode displays the caption as read-only
+- [] Caption changes are autosaved after a 500 ms typing pause
+- [] Updating one post does not modify other posts
+- [] Signal-based UI updates correctly after state changes
+- [] Only the first post image is marked as a priority image
+- [] No application errors occur during the tested user flows
 
 
 ## **10. 🧪 Testing**
