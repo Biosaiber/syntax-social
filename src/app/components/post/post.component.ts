@@ -64,17 +64,3 @@ export class PostComponent {
   }
 
 }
-
-
-/* - receive `postId` using signal-based input : done
-- read the current post from `DataService` : done
-- read the related author from `DataService` : done
-- display post content and author information : done
-- display likes and reposts : done
-- create and display the computed engagement score : done
-- trigger like / unlike actions : DONE
-- trigger repost / unrepost actions : DONE
-- trigger follow / unfollow actions : DONE
-- react to admin mode : DONE
-- show an editable caption in admin mode : DONE
-- trigger the caption autosave flow : DONE*/
