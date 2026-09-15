@@ -9,3 +9,8 @@ img {
   background-color: #ffe34b;
   margin-bottom: 16px;
 }
+.post-content input[type="text"] {
+  width: 100%;
+  padding-left: 8px;
+  background-color: #fff0a2;
+}

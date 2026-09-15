@@ -19,7 +19,12 @@
 
   <section class="post-content">
 
+
+    @if (isAdminOn()) {
+    <h3><input type="text" value="{{currentPost.caption}}" (input)="captionChangeEvent($event)"></h3>
+    } @else {
     <h3>{{ currentPost.caption }}</h3>
+    }
 
     <div class="post-stats">
       <span><button (click)="toggleLike()">❤️</button> {{ currentPost.likes }}</span>
