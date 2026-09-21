@@ -504,7 +504,39 @@ and state updates.
 
 ## **10. 🧪 Testing**
 
-To be completed after implementation.
+A small set of unit tests was added to verify the core application behavior
+and to demonstrate the testing approach used in the project.
+
+### AppComponent
+
+The component tests verify that:
+
+- the application component is created successfully
+- the application title is rendered correctly
+- admin mode can be toggled
+- the UI reacts to the admin mode state and updates the displayed button
+
+### DataService
+
+The service tests verify that:
+
+- the service can be created through Angular dependency injection
+- `toggleLike()` correctly updates the post's like state and like count
+
+### Testing Scope
+
+The project intentionally does not aim for complete unit test coverage.
+
+Syntax Social is a small educational/demo application whose primary goal is
+to demonstrate Angular architecture, Signals-based state management, derived
+state, component interaction, and RxJS-based event handling.
+
+The implemented tests therefore focus on representative application behavior
+rather than testing every similar state mutation individually.
+
+Methods such as `toggleRepost()`, `toggleFollow()`, and `updateCaption()` follow
+the same state-update patterns already exercised by the tested functionality
+and can be covered further as the project evolves.
 
 
 ## **11. 🔄 Data Flow & Responsibilities Check**
