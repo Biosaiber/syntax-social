@@ -1,23 +1,49 @@
-import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app';
+import { TestBed } from "@angular/core/testing";
+import { AppComponent } from "./app";
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-  });
 
-  it('should create the app', () => {
+  it('should create an app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(AppComponent).toBeTruthy();
+
+    expect(app).toBeTruthy();
+  })
+
+  it('should display the title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    fixture.detectChanges();
+
+    const html = fixture.nativeElement;
+    const title = html.querySelector('h1');
+
+    expect(title.textContent).toBe('SyntaxSocial');
   });
 
-  it('should render title', () => {
+  it('should toggle admin mode', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, syntax-social');
+    const app = fixture.componentInstance;
+
+    app.toggleAdminEvent();
+
+    expect(app.isAdminMode()).toBe(true);
   });
+
+  it('should display user mode button when admin mode is active', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+
+    app.toggleAdminEvent();
+    fixture.detectChanges();
+
+    const html = fixture.nativeElement;
+    const button = html.querySelector('footer button');
+
+    expect(button.textContent).toBe('user mode');
+
+
+  });
+
+
 });
