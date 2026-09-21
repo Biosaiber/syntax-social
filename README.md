@@ -323,17 +323,15 @@ RxJS is used for caption editing because typing represents a stream of events ov
 
 ```text
 Caption input changes
-        ↓
-Observable
-        ↓
-debounceTime(...)
-        ↓
-distinctUntilChanged()
-        ↓
+       ↓
+Subject<string>
+       ↓
+debounceTime(500)
+       ↓
 updateCaption(...)
-        ↓
+       ↓
 postStore Signal
-        ↓
+       ↓
 reactive UI update
 ```
 
@@ -541,13 +539,134 @@ and can be covered further as the project evolves.
 
 ## **11. 🔄 Data Flow & Responsibilities Check**
 
-To be completed after implementation.
+The final architecture review confirms that application state, derived values,
+component responsibilities, and event flows remain clearly separated.
 
-The final review should verify:
+### State Ownership
 
-- Who owns each piece of state?
-- Who is allowed to modify that state?
-- Are any values unnecessarily duplicated?
-- Is business logic kept inside services instead of UI components?
-- Does each service have a clear and focused responsibility?
-- Does data flow through the application in the intended direction?
+The application keeps a clear source of truth:
+
+- `DataService` owns the post and user state.
+- `AdminService` owns the admin mode state.
+- Components consume state but do not maintain duplicate copies of it.
+
+### Data Flow
+
+Posts follow a predictable reactive flow:
+
+```text
+postStore
+    ↓
+DataService
+    ↓
+PostListComponent
+    ↓ postId
+PostComponent
+    ↓
+Template
+```
+
+Related user data is resolved through the post's `authorId`:
+
+```text
+Post.authorId
+    ↓
+DataService.getUser()
+    ↓
+User
+```
+
+### State Updates
+
+Components express user actions while the services remain responsible for
+state mutations.
+
+```text
+User Interaction
+    ↓
+Component
+    ↓
+DataService
+    ↓
+Signal.update()
+    ↓
+Derived State
+    ↓
+Reactive UI Update
+```
+
+This flow is used for actions such as liking, reposting, following, and
+updating captions.
+
+### Derived State
+
+Values that can be calculated from existing state are not stored separately.
+
+For example:
+
+```text
+likes + (2 × reposts)
+        ↓
+engagementScore
+```
+
+This avoids duplicated state and keeps derived values synchronized with their
+source data.
+
+### Signals and RxJS Responsibilities
+
+Signals and RxJS serve different purposes in the application:
+
+```text
+Signals → application state and derived state
+RxJS    → event streams and time-based behavior
+```
+
+Caption autosave demonstrates both working together:
+
+```text
+Input Event
+    ↓
+Subject<string>
+    ↓
+debounceTime(500)
+    ↓
+DataService.updateCaption()
+    ↓
+postStore.update()
+    ↓
+Reactive UI Update
+```
+
+The final review confirms that state ownership, data flow, derived state, and
+component/service responsibilities remain clearly separated throughout the
+application.
+
+## **12. 💭 Personal Reflection**
+
+Syntax Social started as a project for practicing Angular Signals, but for me it became much more useful than just another coding exercise.
+
+What I enjoyed the most was finally seeing how the different parts of an Angular application work together. Instead of only learning individual features, I had to think about where the state should live, which component should be responsible for what, how data should move through the application, and what should be stored versus derived.
+
+Signals were probably the most important part of this project for me. I became much more comfortable with `signal()`, `computed()`, `update()`, readonly signals, signal-based inputs, and the idea of deriving values instead of storing unnecessary state.
+
+I also really enjoyed combining Signals with RxJS for the caption autosave. It helped me understand that they do not have to compete with each other. Signals are very natural for application state, while RxJS is extremely useful for event streams and time-based behavior such as `debounceTime()`.
+
+Another important lesson was application architecture. Separating `Post` and `User` state, keeping state mutations inside services, passing IDs between components, and keeping components focused on presentation and user interaction made the project much easier to reason about.
+
+Unit testing was completely new territory for me. I only added a small representative set of tests rather than trying to achieve complete coverage. For now, my goal was to understand the basic workflow: arranging a test, performing an action, asserting the result, testing Signals, checking the DOM, and learning how to read a failing test. I want to improve this gradually in future projects.
+
+Not everything was equally enjoyable. Some of the smaller framework details, configuration, and testing setup are things I still need to become faster and more confident with. I also know that my RxJS knowledge is still much smaller than my understanding of Signals.
+
+My biggest takeaway from this project is that I do not want to continue learning Angular mainly through isolated tutorials. I want to learn by designing and building real applications.
+
+For my next projects I want to focus especially on:
+
+- stronger Angular architecture and project design
+- working with real APIs and persistent data instead of only mock data
+- deeper RxJS knowledge
+- authentication and real application state
+- gradually improving automated testing
+- building applications around real business problems
+
+Syntax Social is not intended to be a production social network. It is a snapshot of where I currently am as an Angular developer and a foundation I can build on in larger, more realistic projects.
